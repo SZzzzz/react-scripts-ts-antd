@@ -119,6 +119,16 @@ module.exports = function(
     return;
   }
 
+  // 安装 antd 
+  console.log(`Installing antd as dependency ${command}...`);
+  console.log();
+
+  const antProc = spawn.sync(command, args.concat(['antd']), { stdio: 'inherit' });
+  if (antProc.status !== 0) {
+    console.error(`\`${command} ${args.concat(['antd]).join(' ')}\` failed`);
+    return;
+  }
+
   // Install additional template dependencies, if present
   const templateDependenciesPath = path.join(
     appPath,
@@ -140,9 +150,7 @@ module.exports = function(
   if (!isReactInstalled(appPackage) || template) {
     console.log(`Installing react and react-dom using ${command}...`);
     console.log();
-
-    // 安装 antd 
-    const proc = spawn.sync(command, args.concat(['react', 'react-dom', 'antd']), {
+    const proc = spawn.sync(command, args.concat(['react', 'react-dom']), {
       stdio: 'inherit',
     });
     if (proc.status !== 0) {
