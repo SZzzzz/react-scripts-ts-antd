@@ -258,7 +258,6 @@ module.exports = {
                 {
                   fallback: require.resolve('style-loader'),
                   use: [
-                    require.resolve('style-loader'),
                     {
                       loader: require.resolve('css-loader'),
                       options: {
@@ -268,13 +267,13 @@ module.exports = {
                     {
                       loader: require.resolve('postcss-loader'),
                       options: {
+                        parser: 'postcss-scss',
                         // Necessary for external CSS imports to work
                         // https://github.com/facebookincubator/create-react-app/issues/2677
                         ident: 'postcss',
-                        parser: 'postcss-scss',
                         plugins: () => [
-                          require('precss'),
-                          require('postcss-flexbugs-fixes'),
+                          require('precss')(),
+                          require('postcss-flexbugs-fixes')(),
                           autoprefixer({
                             browsers: [
                               '>1%',
@@ -317,7 +316,7 @@ module.exports = {
                         // https://github.com/facebookincubator/create-react-app/issues/2677
                         ident: 'postcss',
                         plugins: () => [
-                          require('postcss-flexbugs-fixes'),
+                          require('postcss-flexbugs-fixes')(),
                           autoprefixer({
                             browsers: [
                               '>1%',
