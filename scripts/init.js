@@ -125,7 +125,7 @@ module.exports = function(
 
   const antProc = spawn.sync(command, args.concat(['antd']), { stdio: 'inherit' });
   if (antProc.status !== 0) {
-    console.error(`\`${command} ${args.concat(['antd]).join(' ')}\` failed`);
+    console.error(`\`${command} ${args.concat(['antd']).join(' ')}\` failed`);
     return;
   }
 
