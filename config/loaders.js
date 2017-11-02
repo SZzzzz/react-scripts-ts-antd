@@ -79,7 +79,7 @@ const cssLoaderDev = {
         // Necessary for external CSS imports to work
         // https://github.com/facebookincubator/create-react-app/issues/2677
         // don't need now
-        // ident: 'postcss',
+        ident: 'postcss',
         plugins: () => [
           require('postcss-flexbugs-fixes')(),
           autoprefixer({
@@ -118,7 +118,7 @@ const cssLoaderProd = {
               // Necessary for external CSS imports to work
               // https://github.com/facebookincubator/create-react-app/issues/2677
               // don't need now
-              // ident: 'postcss',
+              ident: 'postcss',
               plugins: () => [
                 require('postcss-flexbugs-fixes')(),
                 autoprefixer({
@@ -157,7 +157,7 @@ const scssLoaderDev = {
       options: {
         // Necessary for external CSS imports to work
         // https://github.com/facebookincubator/create-react-app/issues/2677
-        // ident: 'postcss',
+        ident: 'postcss',
         parser: 'postcss-scss',
         plugins: () => [
           require('precss')(),
@@ -195,7 +195,7 @@ const scssLoaderProd = {
             options: {
               // Necessary for external CSS imports to work
               // https://github.com/facebookincubator/create-react-app/issues/2677
-              // ident: 'postcss',
+              ident: 'postcss',
               parser: 'postcss-scss',
               plugins: () => [
                 require('precss')(),
@@ -235,7 +235,7 @@ const lessLoaderDev = {
       options: {
         // Necessary for external CSS imports to work
         // https://github.com/facebookincubator/create-react-app/issues/2677
-        // ident: 'postcss',
+        ident: 'postcss',
         plugins: () => [
           require('postcss-flexbugs-fixes')(),
           autoprefixer({
@@ -274,7 +274,7 @@ const lessLoaderProd = {
             options: {
               // Necessary for external CSS imports to work
               // https://github.com/facebookincubator/create-react-app/issues/2677
-              // ident: 'postcss',
+              ident: 'postcss',
               plugins: () => [
                 require('postcss-flexbugs-fixes')(),
                 autoprefixer({

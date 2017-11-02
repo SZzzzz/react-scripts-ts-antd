@@ -1,6 +1,6 @@
 {
   "name": "react-scripts-ts-antd",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Configuration and scripts for Create React App.",
   "repository": "https://github.com/SZzzzz/react-scripts-ts-antd",
   "license": "BSD-3-Clause",
@@ -36,7 +36,7 @@
     "less-loader": "^4.0.5",
     "object-assign": "4.1.1",
     "postcss-flexbugs-fixes": "3.2.0",
-    "postcss-loader": "2.0.6",
+    "postcss-loader": "2.0.8",
     "postcss-scss": "^1.0.2",
     "precss": "^2.0.0",
     "promise": "8.0.1",
