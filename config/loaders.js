@@ -1,7 +1,19 @@
-const autoprefixer = require('autoprefixer');
 const paths = require('./paths');
 const tsImportPluginFactory = require('ts-import-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+const autoprefixer = require('autoprefixer')({
+  browsers: [
+    '>1%',
+    'last 4 versions',
+    'Firefox ESR',
+    'not ie < 9', // React doesn't support IE8 anyway
+  ],
+  flexbox: 'no-2009',
+});
+
+const precss = require('precss')();
+const flexBugFixes = require('postcss-flexbugs-fixes')();
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // It requires a trailing slash, or the file assets will get an incorrect path.
@@ -79,18 +91,10 @@ const cssLoaderDev = {
         // Necessary for external CSS imports to work
         // https://github.com/facebookincubator/create-react-app/issues/2677
         // don't need now
-        ident: 'postcss',
+        // ident: 'postcss',
         plugins: () => [
-          require('postcss-flexbugs-fixes')(),
-          autoprefixer({
-            browsers: [
-              '>1%',
-              'last 4 versions',
-              'Firefox ESR',
-              'not ie < 9', // React doesn't support IE8 anyway
-            ],
-            flexbox: 'no-2009',
-          }),
+          flexBugFixes,
+          autoprefixer
         ],
       },
     },
@@ -118,18 +122,10 @@ const cssLoaderProd = {
               // Necessary for external CSS imports to work
               // https://github.com/facebookincubator/create-react-app/issues/2677
               // don't need now
-              ident: 'postcss',
+              // ident: 'postcss',
               plugins: () => [
-                require('postcss-flexbugs-fixes')(),
-                autoprefixer({
-                  browsers: [
-                    '>1%',
-                    'last 4 versions',
-                    'Firefox ESR',
-                    'not ie < 9', // React doesn't support IE8 anyway
-                  ],
-                  flexbox: 'no-2009',
-                }),
+                precss,
+                autoprefixer
               ],
             },
           },
@@ -157,20 +153,12 @@ const scssLoaderDev = {
       options: {
         // Necessary for external CSS imports to work
         // https://github.com/facebookincubator/create-react-app/issues/2677
-        ident: 'postcss',
+        // ident: 'postcss',
         parser: 'postcss-scss',
         plugins: () => [
-          require('precss')(),
-          require('postcss-flexbugs-fixes')(),
-          autoprefixer({
-            browsers: [
-              '>1%',
-              'last 4 versions',
-              'Firefox ESR',
-              'not ie < 9', // React doesn't support IE8 anyway
-            ],
-            flexbox: 'no-2009',
-          }),
+          precss,
+          flexBugFixes,
+          autoprefixer
         ],
       },
     },
@@ -195,20 +183,12 @@ const scssLoaderProd = {
             options: {
               // Necessary for external CSS imports to work
               // https://github.com/facebookincubator/create-react-app/issues/2677
-              ident: 'postcss',
+              // ident: 'postcss',
               parser: 'postcss-scss',
               plugins: () => [
-                require('precss')(),
-                require('postcss-flexbugs-fixes')(),
-                autoprefixer({
-                  browsers: [
-                    '>1%',
-                    'last 4 versions',
-                    'Firefox ESR',
-                    'not ie < 9', // React doesn't support IE8 anyway
-                  ],
-                  flexbox: 'no-2009',
-                }),
+                precss,
+                flexBugFixes,
+                autoprefixer
               ],
             },
           },
@@ -235,18 +215,10 @@ const lessLoaderDev = {
       options: {
         // Necessary for external CSS imports to work
         // https://github.com/facebookincubator/create-react-app/issues/2677
-        ident: 'postcss',
+        // ident: 'postcss',
         plugins: () => [
-          require('postcss-flexbugs-fixes')(),
-          autoprefixer({
-            browsers: [
-              '>1%',
-              'last 4 versions',
-              'Firefox ESR',
-              'not ie < 9', // React doesn't support IE8 anyway
-            ],
-            flexbox: 'no-2009',
-          }),
+          flexBugFixes,
+          autoprefixer
         ],
       },
     },
@@ -274,18 +246,10 @@ const lessLoaderProd = {
             options: {
               // Necessary for external CSS imports to work
               // https://github.com/facebookincubator/create-react-app/issues/2677
-              ident: 'postcss',
+              // ident: 'postcss',
               plugins: () => [
-                require('postcss-flexbugs-fixes')(),
-                autoprefixer({
-                  browsers: [
-                    '>1%',
-                    'last 4 versions',
-                    'Firefox ESR',
-                    'not ie < 9', // React doesn't support IE8 anyway
-                  ],
-                  flexbox: 'no-2009',
-                }),
+                flexBugFixes,
+                autoprefixer
               ],
             },
           },
