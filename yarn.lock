@@ -5649,9 +5649,9 @@ webpack-sources@^1.0.1:
     source-list-map "^2.0.0"
     source-map "~0.5.3"
 
-webpack@3.5.1:
-  version "3.5.1"
-  resolved "http://registry.npm.taobao.org/webpack/download/webpack-3.5.1.tgz#b749ee3d2b5a118dad53e8e41585b3f71e75499a"
+webpack@^3.8.1:
+  version "3.8.1"
+  resolved "https://registry.npmjs.org/webpack/-/webpack-3.8.1.tgz#b16968a81100abe61608b0153c9159ef8bb2bd83"
   dependencies:
     acorn "^5.0.0"
     acorn-dynamic-import "^2.0.0"
