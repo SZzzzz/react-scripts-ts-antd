@@ -27,7 +27,8 @@ switch (script) {
     const result = spawn.sync(
       'node',
       nodeArgs
-        .concat(require.resolve('../scripts/' + script))
+        .concat(require.resolve('react-app-rewired/scripts/' + script))
+        .concat(['--scripts-version', 'react-scripts-ts-antd'])
         .concat(args.slice(scriptIndex + 1)),
       { stdio: 'inherit' }
     );
