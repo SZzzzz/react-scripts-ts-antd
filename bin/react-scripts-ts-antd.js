@@ -27,7 +27,7 @@ switch (script) {
   case 'start':
   case 'test': {
     let result;
-    if (fs.existsSync(appPath + 'config-overrides.js')) {
+    if (fs.existsSync(appPath + '/config-overrides.js')) {
       result = spawn.sync(
         'node',
         nodeArgs
