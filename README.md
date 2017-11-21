@@ -37,6 +37,51 @@ Note: 因为在 `ts-loader` 中配置了 `transpileOnly: true` 关闭了静态�
 const { loaders } = require('react-scripts-ts-antd');
 ```
 
+#### example
+例如比较常见的通过覆盖 less 变量设置 antd 主题.
+```
+// index.less
+@import "~antd/dist/antd.less";
+@primary-color: #000;
+
+```
+此时已经引入了所有的 antd 样式, `ts-import-plugin` 又会重复引入一次, 所以就需要配置 `config-overrides.js` 来防止重复引入.
+```
+// config-overrides.js
+const { getLoader } = require("react-app-rewired");
+
+module.exports = function override(config, env) {
+
+  // 拿到 tsloader
+  const tsloader = getLoader(
+    config.module.rules,
+    rule => String(rule.test) == String(/\.(ts|tsx)$/)
+  );
+
+  // 重新设置 options
+  tsloader.options = {
+    transpileOnly: true,
+    getCustomTransformers: () => ({
+      before: [
+        tsImportPluginFactory([
+          {
+            libraryName: 'antd',
+            libraryDirectory: 'lib',
+          },
+          {
+            libraryName: 'antd-mobile',
+            libraryDirectory: 'lib',
+          }
+        ])
+      ]
+    })
+  }
+  return config;
+};
+
+```
+
+
 ### 默认自动安装 `antd` 包, `antd-mobile` 包需要自己手动安装.
 
 ## react-scripts
