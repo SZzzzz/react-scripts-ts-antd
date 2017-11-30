@@ -1,5 +1,5 @@
 {
-  "name": "react-scripts-ts-antd",
+  "name": "@truelore/web-template",
   "version": "0.4.8",
   "description": "Configuration and scripts for Create React App.",
   "repository": "https://github.com/SZzzzz/react-scripts-ts-antd",
@@ -32,7 +32,7 @@
     "fork-ts-checker-webpack-plugin": "^0.2.8",
     "fs-extra": "3.0.1",
     "html-webpack-plugin": "2.29.0",
-    "jest": "20.0.4",
+    "jest": "21.3.0-beta.11",
     "less": "^2.7.3",
     "less-loader": "^4.0.5",
     "object-assign": "4.1.1",

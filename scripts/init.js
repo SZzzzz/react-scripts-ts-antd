@@ -108,6 +108,13 @@ module.exports = function(
     '@types/react',
     '@types/react-dom',
     '@types/jest',
+    '@types/enzyme',
+    'raf',
+    'react-test-renderer',
+    'enzyme',
+    'enzyme-adapter-react-16',
+    'mobx-react-devtools',
+    'mobx-react-router'
   ];
 
   console.log(`Installing ${types.join(', ')} as dev dependencies ${command}...`);
@@ -119,13 +126,19 @@ module.exports = function(
     return;
   }
 
-  // 安装 antd 
-  console.log(`Installing antd as dependency ${command}...`);
+  // 安装 antd, mobx 等
+  const dependencies = [
+    'antd',
+    'mobx',
+    'mobx-react',
+    'react-router'
+  ];
+  console.log(`Installing ${dependencies.join(', ')} as dependency ${command}...`);
   console.log();
 
-  const antProc = spawn.sync(command, args.concat(['antd']), { stdio: 'inherit' });
+  const antProc = spawn.sync(command, args.concat(dependencies), { stdio: 'inherit' });
   if (antProc.status !== 0) {
-    console.error(`\`${command} ${args.concat(['antd']).join(' ')}\` failed`);
+    console.error(`\`${command} ${args.concat(dependencies).join(' ')}\` failed`);
     return;
   }
 

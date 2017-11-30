@@ -1,24 +1,32 @@
 import React from 'react';
 import { Rate } from 'antd';
+import { Provider } from 'mobx-react';
+import * as allStores from './stores';
+import { isDev } from './utils';
+import DevTools from 'mobx-react-devtools';
+import { Router, Route } from 'react-router';
+import Home from './pages/home/Home';
 import './App.scss';
+import { createHashHistory } from 'history';
+import { syncHistoryWithStore } from 'mobx-react-router';
 
-const logo = require('./logo.svg');
+const hashHistory = createHashHistory();
+const history = syncHistoryWithStore(hashHistory, allStores.routingStore);
 
-class App extends React.Component {
-  render() {
+const devtools = isDev ? <DevTools/> : null;
+
+export default class App extends React.Component {
+  render(): JSX.Element {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <Rate character="6"/>
-      </div>
+        <Provider {...allStores}>
+          <Router history={history}>
+            <div className="app-container">
+              <Route path="/" exact={true} component={Home}/>
+            </div>
+          </Router>
+          {devtools}
+        </Provider>
     );
   }
 }
 
-export default App;
