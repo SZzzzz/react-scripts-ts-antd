@@ -21,10 +21,10 @@ export default class App extends React.Component {
         <Provider {...allStores}>
           <Router history={history}>
             <div className="app-container">
-              <Route path="/" exact={true} component={Home}/>
+                {devtools}
+                <Route path="/" exact={true} component={Home}/>
             </div>
           </Router>
-          {devtools}
         </Provider>
     );
   }

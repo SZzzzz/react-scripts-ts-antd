@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Rate } from 'antd';
 import './Home.scss';
-const logo = require('./assets/logo.svg');
+const logo = require('../../assets/logo.svg');
 
 export default class Home extends Component {
     render(): JSX.Element {
