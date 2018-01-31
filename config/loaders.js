@@ -53,6 +53,7 @@ const urlLoader = {
 const tsLoader = {
   test: /\.(ts|tsx)$/,
   include: paths.appSrc,
+  exclude: /node_modules/,  
   loader: require.resolve('ts-loader'),
   options: {
     transpileOnly: true,
@@ -67,7 +68,8 @@ const tsLoader = {
           {
             libraryName: 'antd-mobile',
             libraryDirectory: 'lib',
-            style: 'css'
+            style: 'css',
+            styleExt: 'css.web'
           }
         ])
       ]
@@ -75,29 +77,42 @@ const tsLoader = {
   }
 };
 
+const postcssLoader = {
+  loader: require.resolve('postcss-loader'),
+  options: {
+    // Necessary for external CSS imports to work
+    // https://github.com/facebookincubator/create-react-app/issues/2677
+    // don't need now
+    // ident: 'postcss',
+    plugins: () => [
+      flexBugFixes,
+      autoprefixer
+    ],
+  },
+};
+
+const rawCssLoaderDev = {
+  loader: require.resolve('css-loader'),
+  options: {
+    importLoaders: 1,
+  },
+};
+
+const rawCssLoaderProd = {
+  loader: require.resolve('css-loader'),
+  options: {
+    importLoaders: 1,
+    minimize: true,
+    sourceMap: shouldUseSourceMap,
+  },
+};
+
 const cssLoaderDev = {
   test: /\.css$/,
   use: [
     require.resolve('style-loader'),
-    {
-      loader: require.resolve('css-loader'),
-      options: {
-        importLoaders: 1,
-      },
-    },
-    {
-      loader: require.resolve('postcss-loader'),
-      options: {
-        // Necessary for external CSS imports to work
-        // https://github.com/facebookincubator/create-react-app/issues/2677
-        // don't need now
-        // ident: 'postcss',
-        plugins: () => [
-          flexBugFixes,
-          autoprefixer
-        ],
-      },
-    },
+    rawCssLoaderDev,
+    postcssLoader,
   ],
 };
 
@@ -108,27 +123,8 @@ const cssLoaderProd = {
       {
         fallback: require.resolve('style-loader'),
         use: [
-          {
-            loader: require.resolve('css-loader'),
-            options: {
-              importLoaders: 1,
-              minimize: true,
-              sourceMap: shouldUseSourceMap,
-            },
-          },
-          {
-            loader: require.resolve('postcss-loader'),
-            options: {
-              // Necessary for external CSS imports to work
-              // https://github.com/facebookincubator/create-react-app/issues/2677
-              // don't need now
-              // ident: 'postcss',
-              plugins: () => [
-                precss,
-                autoprefixer
-              ],
-            },
-          },
+          rawCssLoaderProd,
+          postcssLoader,
         ],
       },
       extractTextPluginOptions
@@ -142,26 +138,8 @@ const scssLoaderDev = {
   test: /\.scss$/,
   use: [
     require.resolve('style-loader'),
-    {
-      loader: require.resolve('css-loader'),
-      options: {
-        importLoaders: 1,
-      },
-    },
-    {
-      loader: require.resolve('postcss-loader'),
-      options: {
-        // Necessary for external CSS imports to work
-        // https://github.com/facebookincubator/create-react-app/issues/2677
-        // ident: 'postcss',
-        parser: 'postcss-scss',
-        plugins: () => [
-          precss,
-          flexBugFixes,
-          autoprefixer
-        ],
-      },
-    },
+    rawCssLoaderDev,
+    postcssLoader,
   ],
 };
 
@@ -172,26 +150,8 @@ const scssLoaderProd = {
       {
         fallback: require.resolve('style-loader'),
         use: [
-          {
-            loader: require.resolve('css-loader'),
-            options: {
-              importLoaders: 1,
-            },
-          },
-          {
-            loader: require.resolve('postcss-loader'),
-            options: {
-              // Necessary for external CSS imports to work
-              // https://github.com/facebookincubator/create-react-app/issues/2677
-              // ident: 'postcss',
-              parser: 'postcss-scss',
-              plugins: () => [
-                precss,
-                flexBugFixes,
-                autoprefixer
-              ],
-            },
-          },
+          rawCssLoaderProd,
+          postcssLoader,
         ],
       },
       extractTextPluginOptions
@@ -204,24 +164,8 @@ const lessLoaderDev = {
   test: /\.less$/,
   use: [
     require.resolve('style-loader'),
-    {
-      loader: require.resolve('css-loader'),
-      options: {
-        importLoaders: 1,
-      },
-    },
-    {
-      loader: require.resolve('postcss-loader'),
-      options: {
-        // Necessary for external CSS imports to work
-        // https://github.com/facebookincubator/create-react-app/issues/2677
-        // ident: 'postcss',
-        plugins: () => [
-          flexBugFixes,
-          autoprefixer
-        ],
-      },
-    },
+    rawCssLoaderDev,
+    postcssLoader,
     require.resolve('less-loader')
   ],
 };
@@ -233,26 +177,8 @@ const lessLoaderProd = {
       {
         fallback: require.resolve('style-loader'),
         use: [
-          {
-            loader: require.resolve('css-loader'),
-            options: {
-              importLoaders: 1,
-              minimize: true,
-              sourceMap: shouldUseSourceMap,
-            },
-          },
-          {
-            loader: require.resolve('postcss-loader'),
-            options: {
-              // Necessary for external CSS imports to work
-              // https://github.com/facebookincubator/create-react-app/issues/2677
-              // ident: 'postcss',
-              plugins: () => [
-                flexBugFixes,
-                autoprefixer
-              ],
-            },
-          },
+          rawCssLoaderProd,
+          postcssLoader,
           require.resolve('less-loader')
         ],
       },
@@ -266,8 +192,12 @@ const lessLoaderProd = {
 // Also exclude `html` and `json` extensions so they get processed
 // by webpacks internal loaders.
 const fileLoader = {
-  exclude: [/\.js$/, /\.html$/, /\.json$/],
   loader: require.resolve('file-loader'),
+  // Exclude `js` files to keep "css" loader working as it injects
+  // it's runtime that would otherwise processed through "file" loader.
+  // Also exclude `html` and `json` extensions so they get processed
+  // by webpacks internal loaders.
+  exclude: [/\.js$/, /\.html$/, /\.json$/],
   options: {
     name: 'static/media/[name].[hash:8].[ext]',
   },
@@ -282,5 +212,6 @@ module.exports = {
   scssLoaderProd,
   lessLoaderDev,
   lessLoaderProd,
-  fileLoader
+  fileLoader,
+  postcssLoader
 };
