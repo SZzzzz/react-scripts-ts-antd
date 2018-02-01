@@ -1,10 +1,14 @@
-# 集成 antd(antd-mobile) 配置的 react-scripts-ts
-基于 react-scripts-ts 二次开发.
-## Usage
-`create-react-app myapp --scripts-version=react-scripts-ts-antd`
+# Create React apps (with Typescript and antd) with no build configuration.
+base on [react-scripts-ts@2.13.0](https://github.com/wmonk/create-react-app-typescript)
 
-## Feature
-### 集成 [ts-import-plugin](https://github.com/Brooooooklyn/ts-import-plugin), 实现 antd 组件以及样式的按需引入
+## Usage
+create a new project with [create-react-app](https://github.com/facebook/create-react-app)
+```
+create-react-app myapp --scripts-version=react-scripts-ts-antd
+```
+
+## Features
+### Intergrate [ts-import-plugin](https://github.com/Brooooooklyn/ts-import-plugin) for importing components on demand. 
 ```
 // source
 import { Card } from 'antd';
@@ -14,14 +18,20 @@ import Card from 'antd/lib/card';
 import Card from 'antd/lib/card/style/index.less';
 ```
 
-Note: 因为在 `ts-loader` 中配置了 `transpileOnly: true` 关闭了静态类型检查,所以引入了 [fork-ts-checker-webpack-plugin](https://github.com/Realytics/fork-ts-checker-webpack-plugin) 进行静态类型检查.
+### Intergrate [react-app-rewired](https://github.com/timarney/react-app-rewired)
+You can rewire your webpack configurations without eject.
+```
+// You can get all default loads
+const { loaders } = require('react-scripts-ts-antd');
+```
 
-### 支持 `scss` 和 `less`
-- `less` 支持基于 `less-loader`.
-- `scss` 支持基于 `postcss` 的 [precss](https://github.com/jonathantneal/precss) 插件包实现.
+### Support `scss` and `less`
+- use `less-loader` for `less`.
+- use [precss](https://github.com/jonathantneal/precss) for `scss`.
 
 
-###  额外开启了 `tsconfig.json` 中的选项.
+
+### Turn on some options of compileOptions in `tsconfig.json`.
 ```
 // tsconfig.json
 {
@@ -30,35 +40,32 @@ Note: 因为在 `ts-loader` 中配置了 `transpileOnly: true` 关闭了静态�
 }
 ```
 
-### 集成 [react-app-rewired](https://github.com/timarney/react-app-rewired) 功能
-可以通过项目根目录下的`config-overrider.js`文件修改 Webpack 配置.
-```
-// 所有默认的 loader 配置可以同过以下方式获取
-const { loaders } = require('react-scripts-ts-antd');
-```
+## Tips
 
-#### example
-例如比较常见的通过覆盖 less 变量设置 antd 主题.
+### How to avoid importing styles twice
+If you want to customize theme by [overriding less variables](https://ant.design/docs/react/customize-theme) like below.
+
 ```
 // index.less
 @import "~antd/dist/antd.less";
 @primary-color: #000;
 
 ```
-此时已经引入了所有的 antd 样式, `ts-import-plugin` 又会重复引入一次, 所以就需要配置 `config-overrides.js` 来防止重复引入.
+
+You have imported all styles and `ts-import-plugin` will import styles again. So you need to reset `ts-loader` options by modifying `config-overrides.js` to avoid importing styles twice.
 ```
 // config-overrides.js
 const { getLoader } = require("react-app-rewired");
 
 module.exports = function override(config, env) {
 
-  // 拿到 tsloader
+  // get tsloader
   const tsloader = getLoader(
     config.module.rules,
     rule => String(rule.test) == String(/\.(ts|tsx)$/)
   );
 
-  // 重新设置 options
+  // set new options
   tsloader.options = {
     transpileOnly: true,
     getCustomTransformers: () => ({
@@ -81,8 +88,7 @@ module.exports = function override(config, env) {
 
 ```
 
-
-### 默认自动安装 `antd` 包, `antd-mobile` 包需要自己手动安装.
+### `antd` package will be installed automatically.If you need `antd-mobile`, install it manually.
 
 ## react-scripts
 This package includes scripts and configuration used by [Create React App](https://github.com/facebookincubator/create-react-app).<br>
