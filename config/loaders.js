@@ -91,6 +91,21 @@ const postcssLoader = {
   },
 };
 
+const precssLoader = {
+  loader: require.resolve('postcss-loader'),
+  options: {
+    // Necessary for external CSS imports to work
+    // https://github.com/facebookincubator/create-react-app/issues/2677
+    // don't need now
+    // ident: 'postcss',
+    plugins: () => [
+      precss,
+      flexBugFixes,
+      autoprefixer
+    ],
+  },
+};
+
 const rawCssLoaderDev = {
   loader: require.resolve('css-loader'),
   options: {
@@ -139,7 +154,7 @@ const scssLoaderDev = {
   use: [
     require.resolve('style-loader'),
     rawCssLoaderDev,
-    postcssLoader,
+    precssLoader,
   ],
 };
 
@@ -151,7 +166,7 @@ const scssLoaderProd = {
         fallback: require.resolve('style-loader'),
         use: [
           rawCssLoaderProd,
-          postcssLoader,
+          precssLoader,
         ],
       },
       extractTextPluginOptions
