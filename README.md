@@ -8,7 +8,7 @@ create-react-app myapp --scripts-version=react-scripts-ts-antd
 ```
 
 ## Features
-### Intergrate [ts-import-plugin](https://github.com/Brooooooklyn/ts-import-plugin) for importing components on demand. 
+### Include [ts-import-plugin](https://github.com/Brooooooklyn/ts-import-plugin) for importing components on demand. 
 ```
 // source
 import { Card } from 'antd';
@@ -18,7 +18,7 @@ import Card from 'antd/lib/card';
 import Card from 'antd/lib/card/style/index.less';
 ```
 
-### Intergrate [react-app-rewired](https://github.com/timarney/react-app-rewired)
+### Include [react-app-rewired](https://github.com/timarney/react-app-rewired)
 You can rewire your webpack configurations without eject.
 ```
 // You can get all default loads
