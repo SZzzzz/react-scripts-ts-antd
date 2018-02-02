@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Rate } from 'antd';
 import { Provider } from 'mobx-react';
 import * as allStores from './stores';
 import { isDev } from './utils';
