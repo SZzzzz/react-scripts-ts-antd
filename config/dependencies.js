@@ -12,7 +12,7 @@ export const devDependencies = [
   '@types/jest',
   '@types/enzyme',
   '@types/history',
-  'raf',
+  'typescript',
   'react-test-renderer',
   'enzyme',
   'enzyme-adapter-react-16',
