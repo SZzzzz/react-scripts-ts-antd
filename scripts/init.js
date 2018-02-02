@@ -35,6 +35,11 @@ module.exports = function(
   const appPackage = require(path.join(appPath, 'package.json'));
   const useYarn = fs.existsSync(path.join(appPath, 'yarn.lock'));
 
+  const gitProc = spawn.sync('git', ['init']), { stdio: 'inherit' });
+  if (gitProc.status !== 0) {
+    console.error(`git init failed, precommit hook will not work. Please reinstall husky after git init.`);
+  }
+
   // Copy over some of the devDependencies
   appPackage.dependencies = appPackage.dependencies || {};
 
