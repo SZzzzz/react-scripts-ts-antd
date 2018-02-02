@@ -55,8 +55,8 @@ module.exports = function(
   };
 
   appPackage['lint-staged'] = {
-    ‘*.{ts,tsx,json,scss,less,md}’: ['prettier --write "src/**/*" "!src/{assets,datas}/**"', 'git add']
-  }；
+    '*.{ts,tsx,json,scss,less,md}': ['prettier --write "src/**/*" "!src/{assets,datas}/**"', 'git add']
+  };
 
   fs.writeFileSync(
     path.join(appPath, 'package.json'),
