@@ -1,4 +1,3 @@
-import 'raf/polyfill';
 import Adapter from 'enzyme-adapter-react-16';
 import { JSDOM } from 'jsdom';
 import Enzyme from 'enzyme';

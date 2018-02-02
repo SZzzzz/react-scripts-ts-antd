@@ -17,5 +17,8 @@ export const devDependencies = [
   'enzyme',
   'enzyme-adapter-react-16',
   'mobx-react-devtools',
-  'mobx-react-router'
+  'mobx-react-router',
+  'prettier',
+  'husky',
+  'tslint-config-prettier'
 ];

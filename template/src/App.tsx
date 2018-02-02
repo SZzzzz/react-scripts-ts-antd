@@ -6,9 +6,9 @@ import { isDev } from './utils';
 import DevTools from 'mobx-react-devtools';
 import { Router, Route } from 'react-router';
 import Home from './pages/home/Home';
-import './App.scss';
 import { createHashHistory } from 'history';
 import { syncHistoryWithStore } from 'mobx-react-router';
+import './App.scss';
 
 const hashHistory = createHashHistory();
 const history = syncHistoryWithStore(hashHistory, allStores.routingStore);
