@@ -45,7 +45,7 @@ module.exports = function(
     test: 'react-scripts-ts-antd test --env=jsdom',
     eject: 'react-scripts-ts-antd eject',
     precommit: 'lint-staged',
-    'prettier-all': 'prettier --write "src/**/*" "!src/{assets,datas}/**"'
+    'prettier-all': "prettier --write 'src/**/*' '!src/{assets,datas}/**'"
   };
 
   // Setup the prettier and git hook
@@ -55,7 +55,7 @@ module.exports = function(
   };
 
   appPackage['lint-staged'] = {
-    '*.{ts,tsx,json,scss,less,md}': ['prettier --write "src/**/*" "!src/{assets,datas}/**"', 'git add']
+    '*.{ts,tsx,scss,less,md}': ['prettier --write', 'git add']
   };
 
   fs.writeFileSync(

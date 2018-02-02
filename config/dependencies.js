@@ -20,5 +20,6 @@ exports.devDependencies = [
   'mobx-react-router',
   'prettier',
   'husky',
-  'tslint-config-prettier'
+  'tslint-config-prettier',
+  'lint-staged'
 ];
