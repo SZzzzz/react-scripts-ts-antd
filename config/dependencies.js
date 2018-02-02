@@ -2,6 +2,7 @@ exports.dependencies = [
   'antd',
   'mobx',
   'mobx-react',
+  'mobx-react-router',  
   'react-router'
 ];
 
@@ -11,13 +12,12 @@ exports.devDependencies = [
   '@types/react-dom',
   '@types/jest',
   '@types/enzyme',
-  '@types/history',
+  '@types/react-router',
   'typescript',
   'react-test-renderer',
   'enzyme',
   'enzyme-adapter-react-16',
   'mobx-react-devtools',
-  'mobx-react-router',
   'prettier',
   'husky',
   'tslint-config-prettier',
