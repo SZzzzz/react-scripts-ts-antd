@@ -1,11 +1,11 @@
-export const dependencies = [
+exports.dependencies = [
   'antd',
   'mobx',
   'mobx-react',
   'react-router'
 ];
 
-export const devDependencies = [
+exports.devDependencies = [
   '@types/node',
   '@types/react',
   '@types/react-dom',
