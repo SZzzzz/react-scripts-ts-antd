@@ -10,8 +10,9 @@ create-react-app myapp --scripts-version=react-scripts-ts-antd
 ## Features
 
 ### Configurations fro APICloud
-- Use [aoicloud-wifi-helper](https://www.npmjs.com/package/apicloud-wifi-helper) without any configurations.
-- Set `homepage` to `./`
+- Use [apicloud-wifi-helper](https://www.npmjs.com/package/apicloud-wifi-helper) without any configurations.
+- Set `homepage` to `./` .
+- Custom template for APICloud.
 
 ### Include [ts-import-plugin](https://github.com/Brooooooklyn/ts-import-plugin) for importing components on demand. 
 ```
