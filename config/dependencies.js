@@ -1,5 +1,5 @@
 exports.dependencies = [
-  'antd',
+  'antd-mobile',
   'mobx',
   'mobx-react',
   'mobx-react-router',  

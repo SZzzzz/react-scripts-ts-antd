@@ -8,6 +8,11 @@ create-react-app myapp --scripts-version=react-scripts-ts-antd
 ```
 
 ## Features
+
+### Configurations fro APICloud
+- Use [aoicloud-wifi-helper](https://www.npmjs.com/package/apicloud-wifi-helper) without any configurations.
+- Set `homepage` to `./`
+
 ### Include [ts-import-plugin](https://github.com/Brooooooklyn/ts-import-plugin) for importing components on demand. 
 ```
 // source
@@ -88,7 +93,7 @@ module.exports = function override(config, env) {
 
 ```
 
-### `antd` package will be installed automatically.If you need `antd-mobile`, install it manually.
+### `antd-mobile` package will be installed automatically.If you need `antd`, install it manually.
 
 ## react-scripts
 This package includes scripts and configuration used by [Create React App](https://github.com/facebookincubator/create-react-app).<br>
