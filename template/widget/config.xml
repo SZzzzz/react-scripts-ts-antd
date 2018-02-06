@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<widget id="ID" version="0.0.1">
+  <name>NAME</name>
+  <description/>
+  <author email="carrow@126.com" href="http://www.apicloud.com">carrow</author>
+  <content src="./build/index.html"/>
+</widget>

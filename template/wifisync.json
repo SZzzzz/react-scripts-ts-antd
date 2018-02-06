@@ -1,0 +1,7 @@
+{
+  "widgetPath":"./widget",
+  "port":"10915",
+  "distSourcePath":"./build",
+  "distTargetPath":"./widget/build",
+  "syncIgnore":[]
+}

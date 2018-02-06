@@ -63,6 +63,9 @@ module.exports = function(
     '*.{ts,tsx,scss,less,md}': ['prettier --write', 'git add']
   };
 
+  // Set homepag to './' for production.
+  appPackage.homepage = './';
+
   fs.writeFileSync(
     path.join(appPath, 'package.json'),
     JSON.stringify(appPackage, null, 2)
