@@ -56,6 +56,7 @@ You have imported all styles and `ts-import-plugin` will import styles again. So
 ```
 // config-overrides.js
 const { getLoader } = require("react-app-rewired");
+const tsImportPluginFactory = require('ts-import-plugin');
 
 module.exports = function override(config, env) {
 
