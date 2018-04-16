@@ -1,5 +1,5 @@
 # Create React apps (with Typescript and antd) with no build configuration.
-base on [react-scripts-ts@2.13.0](https://github.com/wmonk/create-react-app-typescript)
+base on [react-scripts-ts@2.15.1](https://github.com/wmonk/create-react-app-typescript)
 
 ## Usage
 create a new project with [create-react-app](https://github.com/facebook/create-react-app)

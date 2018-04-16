@@ -1,11 +1,11 @@
-import * as React from 'react';
 import { Rate } from 'antd';
+import * as React from 'react';
 import './App.scss';
 
-const logo = require('./logo.svg');
+import logo from './logo.svg';
 
 class App extends React.Component {
-  render() {
+  public render() {
     return (
       <div className="App">
         <div className="App-header">
