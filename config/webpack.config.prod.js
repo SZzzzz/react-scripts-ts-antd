@@ -20,6 +20,7 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const paths = require('./paths');
 const getClientEnvironment = require('./env');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const loaders = require('./loaders');
 
 // Webpack uses `publicPath` to determine where the app is being served from.
@@ -130,7 +131,7 @@ module.exports = {
       // please link the files into your node_modules/ and let module-resolution kick in.
       // Make sure your source files are compiled, as they will not be processed in any way.
       new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson]),
-      new TsconfigPathsPlugin({configFile: paths.appTsConfig})
+      new TsconfigPathsPlugin({ configFile: paths.appTsConfig }),
     ],
   },
   module: {
@@ -150,12 +151,15 @@ module.exports = {
         // match the requirements. When no loader matches it will fall
         // back to the "file" loader at the end of the loader list.
         oneOf: [
-          loaders.urlLoader,
+          loaders.urlLoader,          
+          loaders.jsLoader,
           loaders.tsLoader,
           loaders.cssLoaderProd,
           loaders.scssLoaderProd,
           loaders.lessLoaderProd,
           loaders.fileLoader,
+          // ** STOP ** Are you adding a new loader?
+          // Make sure to add the new loader(s) before the "file" loader.
         ],
       },
     ],
@@ -190,27 +194,42 @@ module.exports = {
     // Otherwise React will be compiled in the very slow development mode.
     new webpack.DefinePlugin(env.stringified),
     // Minify the code.
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false,
-        // Disabled because of an issue with Uglify breaking seemingly valid code:
-        // https://github.com/facebookincubator/create-react-app/issues/2376
-        // Pending further investigation:
-        // https://github.com/mishoo/UglifyJS2/issues/2011
-        comparisons: false,
+    new UglifyJsPlugin({
+      uglifyOptions: {
+        parse: {
+          // we want uglify-js to parse ecma 8 code. However we want it to output
+          // ecma 5 compliant code, to avoid issues with older browsers, this is
+          // whey we put `ecma: 5` to the compress and output section
+          // https://github.com/facebook/create-react-app/pull/4234
+          ecma: 8,
+        },
+        compress: {
+          ecma: 5,
+          warnings: false,
+          // Disabled because of an issue with Uglify breaking seemingly valid code:
+          // https://github.com/facebook/create-react-app/issues/2376
+          // Pending further investigation:
+          // https://github.com/mishoo/UglifyJS2/issues/2011
+          comparisons: false,
+        },
+        mangle: {
+          safari10: true,
+        },
+        output: {
+          ecma: 5,
+          comments: false,
+          // Turned on because emoji and regex is not minified properly using default
+          // https://github.com/facebook/create-react-app/issues/2488
+          ascii_only: true,
+        },
       },
-      mangle: {
-        safari10: true,
-      },
-      output: {
-        comments: false,
-        // Turned on because emoji and regex is not minified properly using default
-        // https://github.com/facebookincubator/create-react-app/issues/2488
-        ascii_only: true,
-      },
+      // Use multi-process parallel running to improve the build speed
+      // Default number of concurrent runs: os.cpus().length - 1
+      parallel: true,
+      // Enable file caching
+      cache: true,
       sourceMap: shouldUseSourceMap,
-    }),
-    // Note: this won't work without ExtractTextPlugin.extract(..) in `loaders`.
+    }),    // Note: this won't work without ExtractTextPlugin.extract(..) in `loaders`.
     new ExtractTextPlugin({
       filename: cssFilename,
     }),

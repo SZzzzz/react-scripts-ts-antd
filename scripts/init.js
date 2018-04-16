@@ -125,16 +125,6 @@ module.exports = function(
     return;
   }
 
-  // 安装 antd 
-  console.log(`Installing antd as dependency ${command}...`);
-  console.log();
-
-  const antProc = spawn.sync(command, args.concat(['antd']), { stdio: 'inherit' });
-  if (antProc.status !== 0) {
-    console.error(`\`${command} ${args.concat(['antd']).join(' ')}\` failed`);
-    return;
-  }
-
   // Install additional template dependencies, if present
   const templateDependenciesPath = path.join(
     appPath,
@@ -164,6 +154,16 @@ module.exports = function(
       console.error(`\`${command} ${args.join(' ')}\` failed`);
       return;
     }
+  }
+
+  // 安装 antd 
+  console.log(`Installing antd as dependency ${command}...`);
+  console.log();
+
+  const antProc = spawn.sync(command, args.concat(['antd']), { stdio: 'inherit' });
+  if (antProc.status !== 0) {
+    console.error(`\`${command} ${args.concat(['antd']).join(' ')}\` failed`);
+    return;
   }
 
   // Display the most elegant way to cd.

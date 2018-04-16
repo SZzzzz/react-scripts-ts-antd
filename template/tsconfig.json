@@ -17,8 +17,7 @@
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
     "allowSyntheticDefaultImports": true,
-    "experimentalDecorators": true,
-    "baseUrl": "."
+    "experimentalDecorators": true
   },
   "exclude": [
     "node_modules",

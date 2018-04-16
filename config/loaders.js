@@ -49,32 +49,50 @@ const urlLoader = {
   },
 };
 
+const importPluginOption = [
+  {
+    libraryName: 'antd',
+    libraryDirectory: 'lib',
+    style: 'css'
+  },
+  {
+    libraryName: 'antd-mobile',
+    libraryDirectory: 'lib',
+    style: 'css',
+  }
+];
+
+// js loader
+const jsLoader = {
+  test: /\.(js|jsx|mjs)$/,
+  include: paths.appSrc,
+  loader: require.resolve('babel-loader'),
+  options: {
+    // @remove-on-eject-begin
+    babelrc: false,
+    presets: [require.resolve('babel-preset-react-app')],
+    plugins: [['babel-plugin-import', importPluginOption]],
+    // @remove-on-eject-end
+    compact: true,
+  },
+};
+
+
 // ts loader
 const tsLoader = {
   test: /\.(ts|tsx)$/,
   include: paths.appSrc,
-  exclude: /node_modules/,  
-  loader: require.resolve('ts-loader'),
-  options: {
-    transpileOnly: true,
-    getCustomTransformers: () => ({
-      before: [
-        tsImportPluginFactory([
-          {
-            libraryName: 'antd',
-            libraryDirectory: 'lib',
-            style: 'css'
-          },
-          {
-            libraryName: 'antd-mobile',
-            libraryDirectory: 'lib',
-            style: 'css',
-            styleExt: 'css.web'
-          }
-        ])
-      ]
-    })
-  }
+  use: [
+    {
+      loader: require.resolve('ts-loader'),
+      options: {
+        transpileOnly: true,
+        getCustomTransformers: () => ({
+          before: [tsImportPluginFactory(importPluginOption)]
+        })
+      }
+    }
+  ]
 };
 
 const postcssLoader = {
