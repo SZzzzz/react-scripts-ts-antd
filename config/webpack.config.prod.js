@@ -131,7 +131,7 @@ module.exports = {
       // please link the files into your node_modules/ and let module-resolution kick in.
       // Make sure your source files are compiled, as they will not be processed in any way.
       new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson]),
-      new TsconfigPathsPlugin({ configFile: paths.appTsConfig }),
+      new TsconfigPathsPlugin({ configFile: paths.appTsProdConfig }),
     ],
   },
   module: {
@@ -229,7 +229,7 @@ module.exports = {
       // Enable file caching
       cache: true,
       sourceMap: shouldUseSourceMap,
-    }),    // Note: this won't work without ExtractTextPlugin.extract(..) in `loaders`.
+    }), // Note: this won't work without ExtractTextPlugin.extract(..) in `loaders`.
     new ExtractTextPlugin({
       filename: cssFilename,
     }),
@@ -278,7 +278,7 @@ module.exports = {
     // Perform type checking and linting in a separate process to speed up compilation
     new ForkTsCheckerWebpackPlugin({
       async: false,
-      tsconfig: paths.appTsConfig,
+      tsconfig: paths.appTsProdConfig,
       tslint: paths.appTsLint,
     }),
   ],
